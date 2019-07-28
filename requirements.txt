@@ -1,0 +1,10 @@
+sklearn
+pandas
+tensorflow
+keras
+matplotlib
+tables
+jupyter
+ipywidgets
+plotly
+cufflinks

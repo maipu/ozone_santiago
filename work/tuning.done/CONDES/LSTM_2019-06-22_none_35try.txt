@@ -1,0 +1,23 @@
+100%|██████████| 35/35 [7:30:36<00:00, 1665.63s/it, best loss: 0.44403402977330475]
+{'LAGS': 7, 'round': 0.9984859841588241, 'layers': 1, 'rate': 0.09706594735930138, 'round_1': 0.8562065156305115, 'rate_1': 0.163032727137165}
+Configuracion:
+        LAGS: 28
+      layers: two
+       lstm1: 18
+    dropout1: 0.09706594735930138
+       lstm2: 51
+    dropout2: 0.163032727137165
+
+Calculando Predicciones
+Error RMSE
+    Train Score     : 20.87 RMSE
+    Validation Score: 16.07 RMSE
+    Test Score      : 17.64 RMSE
+RMSEat92
+    Train Score     : 25.07 RMSEat92
+    Validation Score: 19.62 RMSEat92
+    Test Score      : 19.53 RMSEat92
+RMSEat61
+    Train Score     : 18.08 RMSEat61
+    Validation Score: 13.39 RMSEat61
+    Test Score      : 13.39 RMSEat61

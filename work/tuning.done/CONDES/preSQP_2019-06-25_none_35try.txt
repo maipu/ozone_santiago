@@ -1,0 +1,26 @@
+100%|██████████| 35/35 [9:56:15<00:00, 2042.18s/it, best loss: 2.3473433435185878]
+{'rate': 0.9069366815763596, 'LAGS': 7, 'round': 0.9813840681397694, 'layers': 0, 'rate_1': 0.1039097048846793, 'round_1': 0.19477873918538988}
+Configuracion:
+         LAGS: 28
+    QUANTILES: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+       layers: one
+        lstm1: 15
+     dropout1: 0.9069366815763596
+        lstm2: 45
+     dropout2: 0.1039097048846793
+
+Qprediction ...
+### LSTM CUANTÍLICA ###
+Error RMSE
+    Train Score     : 20.05 RMSE
+    Validation Score: 16.52 RMSE
+    Test Score      : 17.89 RMSE
+RMSEat92
+    Train Score     : 22.99 RMSEat92
+    Validation Score: 18.05 RMSEat92
+    Test Score      : 17.11 RMSEat92
+RMSEat61
+    Train Score     : 17.05 RMSEat61
+    Validation Score: 13.55 RMSEat61
+    Test Score      : 14.40 RMSEat61
+quantil_loss
