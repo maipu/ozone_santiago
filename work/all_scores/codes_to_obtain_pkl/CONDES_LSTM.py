@@ -1880,7 +1880,7 @@ LSTMconfig = {
                     
                     #myLSTM()
            "OVERWRITE_MODEL" : False,
-                "MODEL_NAME" : "classicModel",
+                "MODEL_NAME" : "LSTM",
                     "LAYERS" : [18, 51],
                   "DROP_RATE": [0.0970659473593013, 0.163032727137165],
                 "BATCH_SIZE" : 16,
@@ -1889,7 +1889,7 @@ LSTMconfig = {
                   "TIMEDIST" : False,
                       "LOSS" : "", # "" or "atTHETA"
                      "GRAPH" : False,
-                  "OWN_SAVE" : "MiModelo",
+                  "OWN_SAVE" : None,
                   "OWN_LOAD" : None, #"MiModelo",
                     #Y to calc Error. For Test Only.
                         "Yx" : 0    # DEFAULT 0
