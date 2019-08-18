@@ -14,4 +14,8 @@
 * **work:** This is the main folder. All .py files must be in this folder to work properly, also the ozone_forecasting_multi-task notebook.
 
 
-***updates in next days.***
+## For all models:
+* Optimizer: Adam.
+* Learning Rate: $0.001$
+* B<sub>1</sub>: $0.9$
+* B<sub>2</sub>: $0.999$
