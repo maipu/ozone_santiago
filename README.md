@@ -16,6 +16,6 @@
 
 ## For all models:
 * Optimizer: Adam.
-* Learning Rate: $0.001$
-* B<sub>1</sub>: $0.9$
-* B<sub>2</sub>: $0.999$
+* Learning Rate: 0.001
+* B<sub>1</sub>: 0.9
+* B<sub>2</sub>: 0.999
