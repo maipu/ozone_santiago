@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+
 # # Imports
 
 # In[ ]:
@@ -70,6 +71,16 @@ def get_station(STATION):
         DEFAULT_THETA = 54
     elif STATION == "Parque_OHiggins" or STATION == "POH_full":
         FILTER_YEARS = [2009, 2016]
+        DEFAULT_THETA = 60
+    
+    elif STATION == "CONDES 4F":
+        FILTER_YEARS = [2008, 2013]
+        DEFAULT_THETA = 84
+    elif STATION == "INDEP 4F":
+        FILTER_YEARS = [2009, 2014]
+        DEFAULT_THETA = 58
+    elif STATION == "POH 4F":
+        FILTER_YEARS = [2009, 2014]
         DEFAULT_THETA = 60
     
     return STATION, FILTER_YEARS, DEFAULT_THETA
@@ -250,7 +261,7 @@ def precalcular_eventos(theta,STATION,REMAKE=False):
 
     return ecdf
 
-
+#asdf = precalcular_eventos(61,"Independencia",REMAKE=False)
 
 
 # ## import_merge_and_scale
@@ -437,7 +448,7 @@ def import_merge_and_scale(Config, verbose=True, SCALE = True):
 #STATION, FILTER_YEARS, THETA = "POH_full", [2010, 2017], 56
 #STATION, FILTER_YEARS, THETA = "Las_Condes", [2004, 2013], 89
 #STATION, FILTER_YEARS, THETA = "Parque_OHiggins", [2009, 2017], 60
-STATION, FILTER_YEARS, THETA = get_station("Las_Condes")
+STATION, FILTER_YEARS, THETA = get_station("Independencia")
 tempConfig = {
     "STATION": STATION,
     "SCALER" : preprocessing.StandardScaler,
@@ -454,11 +465,9 @@ norm_data, YLABELS, dataScaler, __scaler = import_merge_and_scale(tempConfig, SC
 original = norm_data
 
 
+# In[ ]:
 
 
-
-# ## select_features
-# Crea un DataFrame que contiene sólo los atributos indicados en FEATURES o los datos que contengan un porcentaje de no nulos mayor al CUT. Cuando se utiliza el CUT, se pueden banear atributos manualmente.  
 
 
 # Selección de atributos en base a la cantidad de ejemplos sin datos nulos que se dispondrán
@@ -532,6 +541,47 @@ def select_features(internalConfig, Config, verbose=True):
 # In[ ]:
 
 
+#STATION, FILTER_YEARS, THETA = "Independencia", [2009, 2017], 56
+#STATION, FILTER_YEARS, THETA = "Las_Condes", [2004, 2013], 92
+#STATION, FILTER_YEARS, THETA = "Parque_OHiggins", [2009, 2017], 60
+STATION, FILTER_YEARS, THETA = get_station("Independencia")
+tempConfig = {
+        "STATION":STATION,
+        "SCALER" : preprocessing.StandardScaler,
+        "IMPUTATION" : None,# "ffill",
+        "AGREGADOS":[],
+        "PRECALC":[],#precalcular_agregados(STATION),
+        "THETA":THETA,
+        "TARGET":"O3",
+        "SHIFT":-1,
+        "PAST":False,
+        "FIXED_FEATURES":['CO', 'PM10', 'PM25', 'NO', 'NOX', 'WD', 'RH', 'TEMP', 'WS', 'UVA', 'UVB', 'O3'],
+        "CUT": 0.41, #0.26 para 12 atributos con todos los años
+        "BAN": ["countEC","EC", "O3btTHETA"],
+        "FILTER_YEARS" : FILTER_YEARS
+    }
+tempIC={}
+tempIC["complete_dataset"], tempIC["ylabels"], __Yscaler, __h24scaler = import_merge_and_scale(tempConfig, verbose=False, SCALE=True)
+data, __ = select_features(tempIC, tempConfig, verbose=True)
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+#kk = pd.read_csv("data_con_nan-CUT=0.26.csv", index_col=0, parse_dates=True)
+
+
+# In[ ]:
+
+
+#kk = data.drop("y",axis=1).dropna(how="all")
+#pd.read_csv("data_horaria_con_nan_CUT=0.55.csv", index_col=0, parse_dates=True)
 
 
 # ## nonancheck
@@ -549,8 +599,9 @@ def nonancheck():
         "SCALER" : preprocessing.StandardScaler,
         "IMPUTATION":None,
         "FILTER_YEARS" : [],
-        "AGREGADOS":[], "PRECALC":precalcular_agregados(STATION),
-        "THETA":89,
+        "AGREGADOS":[],
+        "PRECALC":[],#precalcular_agregados(STATION),
+        "THETA":61,
         "TARGET":"O3",
         "SHIFT":-1,
         "PAST":False,
@@ -578,8 +629,9 @@ def y_vs_target():
         "SCALER" : preprocessing.StandardScaler,
         "IMPUTATION":None,
         "FILTER_YEARS" : [],
-        "AGREGADOS":[], "PRECALC":precalcular_agregados(STATION),
-        "THETA":89,
+        "AGREGADOS":[],
+        "PRECALC":[],#precalcular_agregados(STATION),
+        "THETA":61,
         "TARGET":"O3",
         "SHIFT":-1,
         "PAST":False,
@@ -790,7 +842,7 @@ def join_index(date_index, array, label):
 # Plot del TARGET y su valor actual
 def plot_y_true():
     #STATION = "Las_Condes"
-    STATION, FILTER_YEARS, THETA = get_station("Las_Condes")
+    STATION, FILTER_YEARS, THETA = get_station("Independencia")
     tempConfig = {
         "STATION":STATION,
         "SCALER" : preprocessing.StandardScaler,
@@ -1164,14 +1216,6 @@ def RMSE(ytrue, ypred, THETA=False, norm=False, ALL=False):
 # In[ ]:
 
 
-yt = np.array([1, 2, 3, 4, 1])
-yp = np.array([1, 2, 1, 1, 1])
-
-print(np.mean(yt))
-print(RMSE(yt,yp))
-print(RMSE(yt,yp, norm=True))
-print(np.sqrt( ( ((1-1)/1)**2 + ((2-2)/2)**2 + ((3-1)/3)**2 + ((4-1)/4)**2 + ((1-1)/1)**2 )/5 ) )
-print(RMSE(yt,yp, ALL= True, THETA = 3))
 
 
 # In[ ]:
@@ -1274,12 +1318,34 @@ def IC_metrics(inf_limit, sup_limit, nominal_sig, true_values, base_prediction=0
     return np.mean(MIS), np.mean(MSIS), cov_prob/len(true_values), np.mean(lenght)
 
 
+# In[ ]:
 
 
-# # LSTM
-# LSTM con función de pérdida de 'mean_squared_error'.
+#def RMSEat(theta, ytrue, ypred):
+#    includes = ytrue >= theta
+#    if includes.any():
+#        return math.sqrt(mean_squared_error(ytrue[includes], ypred[includes] ))
+#    else:
+#        return np.nan
 
-# ## myLSTM
+
+# In[ ]:
+
+
+#def MAEat(theta, ytrue, ypred):
+#    includes = ytrue >= theta
+#    if includes.any():
+#        return mean_absolute_error(ytrue[includes], ypred[includes] )
+#    else:
+#        return np.nan
+
+
+# # Lossses
+# ## LossAtTHETA
+
+# In[ ]:
+
+
 
 # In[ ]:
 
@@ -1674,10 +1740,6 @@ def myLSTMPredict(internalConfig, Config):
 # In[ ]:
 
 
-a = np.array([ [1,2,3],
-               [4,5,6],
-               [7,8,9]])
-a[:,1]
 
 
 # ## myLSTMModel
@@ -1739,8 +1801,8 @@ def myLSTMModel(internalConfig, Config):
     losses = []
     list_models = []
     
-    LAYERS = LAYERS[::-1]
-    DROP_RATE = DROP_RATE[::-1]
+    LAYERS.reverse()
+    DROP_RATE.reverse()
     
     for fold in range(0,len(list_trainX)):
         internalConfig['fold'] = fold + 1
@@ -1831,12 +1893,6 @@ def myLSTMModel(internalConfig, Config):
 
 # In[ ]:
 
-
-#LSTMconfig["GRAPH"] = False
-#LSTMconfig["moreTHETA"] = []#[89, 76, 61]
-#a =myLSTMPredict(myLSTMoutput, LSTMconfig)
-
-
 # ## Pruebas con varias seeds
 
 # In[ ]:
@@ -1848,7 +1904,7 @@ def myLSTMModel(internalConfig, Config):
 # In[ ]:
 
 
-STATION, FILTER_YEARS, THETA = get_station("Las_Condes")
+STATION, FILTER_YEARS, THETA = get_station("Independencia")
 LSTMconfig = {
                     # import_merge_and_scale()
                    "STATION" : STATION,
@@ -1880,16 +1936,16 @@ LSTMconfig = {
                     
                     #myLSTM()
            "OVERWRITE_MODEL" : False,
-                "MODEL_NAME" : "LSTM",
-                    "LAYERS" : [18, 51],
-                  "DROP_RATE": [0.0970659473593013, 0.163032727137165],
+                "MODEL_NAME" : "classicModel",
+                    "LAYERS" : [39],
+                  "DROP_RATE": [0.216376657587594],
                 "BATCH_SIZE" : 16,
                     "EPOCHS" : 400,
                   "PATIENCE" : 20,
                   "TIMEDIST" : False,
                       "LOSS" : "", # "" or "atTHETA"
                      "GRAPH" : False,
-                  "OWN_SAVE" : None,
+                  "OWN_SAVE" : "MiModelo",
                   "OWN_LOAD" : None, #"MiModelo",
                     #Y to calc Error. For Test Only.
                         "Yx" : 0    # DEFAULT 0
@@ -1922,8 +1978,7 @@ for m in all_metrics:
 
 # In[ ]:
 import pickle
-output = open("CONDES_all_scores.pkl", 'wb')
+output = open("INDEP_all_scores.pkl", 'wb')
 pickle.dump(all_scores, output)
 output.close()
-
 

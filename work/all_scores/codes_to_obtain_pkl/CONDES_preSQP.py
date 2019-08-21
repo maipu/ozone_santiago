@@ -1191,14 +1191,6 @@ def RMSE(ytrue, ypred, THETA=False, norm=False, ALL=False):
 # In[ ]:
 
 
-yt = np.array([1, 2, 3, 4, 1])
-yp = np.array([1, 2, 1, 1, 1])
-
-print(np.mean(yt))
-print(RMSE(yt,yp))
-print(RMSE(yt,yp, norm=True))
-print(np.sqrt( ( ((1-1)/1)**2 + ((2-2)/2)**2 + ((3-1)/3)**2 + ((4-1)/4)**2 + ((1-1)/1)**2 )/5 ) )
-print(RMSE(yt,yp, ALL= True, THETA = 3))
 
 
 # In[ ]:
@@ -1703,10 +1695,6 @@ def myLSTMPredict(internalConfig, Config):
 # In[ ]:
 
 
-a = np.array([ [1,2,3],
-               [4,5,6],
-               [7,8,9]])
-a[:,1]
 
 
 # ## myLSTMModel

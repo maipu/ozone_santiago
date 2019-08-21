@@ -4531,8 +4531,6 @@ def SQPrediction(internalConfig, selectConfig, quantileOutput):
     
     testY = internalConfig["testY"]
     
-    caca = model.predict(trainX[0, None])
-    print(caca)
     print(trainY[0])
     print(quantileOutput['trainPred'][0])
     a = quantileOutput['trainYq'][0,None]
