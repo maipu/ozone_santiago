@@ -1321,27 +1321,7 @@ def IC_metrics(inf_limit, sup_limit, nominal_sig, true_values, base_prediction=0
 # In[ ]:
 
 
-#def RMSEat(theta, ytrue, ypred):
-#    includes = ytrue >= theta
-#    if includes.any():
-#        return math.sqrt(mean_squared_error(ytrue[includes], ypred[includes] ))
-#    else:
-#        return np.nan
 
-
-# In[ ]:
-
-
-#def MAEat(theta, ytrue, ypred):
-#    includes = ytrue >= theta
-#    if includes.any():
-#        return mean_absolute_error(ytrue[includes], ypred[includes] )
-#    else:
-#        return np.nan
-
-
-# # Lossses
-# ## LossAtTHETA
 
 # In[ ]:
 
